@@ -1,14 +1,13 @@
 import { getSelectedText, open, showHUD } from "@raycast/api";
-const extractUrls = require("extract-urls");
+import extractUrls from "extract-urls";
 
 export default async function main() {
   try {
     const selectedText = await getSelectedText();
     const urls = extractUrls(selectedText);
-    await showHUD(urls.join('++'));
     if (urls.length > 0) {
       for (const url of urls) {
-        await open(url, "company.thebrowser.Browser");
+        await open(url);
       }
     } else {
       await showHUD("No URLs found");
@@ -17,4 +16,3 @@ export default async function main() {
     await showHUD(String(error));
   }
 }
-
